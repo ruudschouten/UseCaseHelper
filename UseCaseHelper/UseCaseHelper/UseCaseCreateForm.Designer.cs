@@ -176,6 +176,7 @@
             this.Controls.Add(this.tbNaam);
             this.Name = "UseCaseCreateForm";
             this.Text = "UseCaseCreateForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UseCaseCreateForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

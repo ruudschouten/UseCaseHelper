@@ -11,12 +11,36 @@ using System.Windows.Forms;
 namespace UseCaseHelper {
     public partial class UseCaseCreateForm : Form {
         private UseCase useCase;
+        private Point position;
         public UseCaseCreateForm() {
             InitializeComponent();
         }
 
-        public UseCaseCreateForm(UseCase u) : this() {
+        public UseCaseCreateForm(UseCase u, Point position) : this() {
             useCase = u;
+            this.position = position;
+        }
+
+        private void UseCaseCreateForm_FormClosing(object sender, FormClosingEventArgs e) {
+            e.Cancel = true;
+            string naam = tbNaam.Text;
+            string samenvatting = tbSamenvatting.Text;
+            string aannamen = tbAannamen.Text;
+            string beschrijving = rtbBeschrijving.Text;
+            string uitzonderingen = rtbUitzonderingen.Text;
+            string resultaat = tbResultaat.Text;
+            if (string.IsNullOrEmpty(naam) || string.IsNullOrEmpty(samenvatting) || string.IsNullOrEmpty(aannamen) ||
+                string.IsNullOrEmpty(beschrijving) || string.IsNullOrEmpty(uitzonderingen) || string.IsNullOrEmpty(resultaat)) {
+                MessageBox.Show("Een of meerdere velden zijn niet ingevuld");
+            }
+            else {
+                useCase = new UseCase(naam, samenvatting, aannamen, beschrijving, uitzonderingen, resultaat, position);
+                e.Cancel = false;
+            }
+        }
+
+        public UseCase GetUseCase() {
+            return useCase;
         }
     }
 }
