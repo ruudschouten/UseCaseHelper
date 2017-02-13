@@ -16,6 +16,8 @@ namespace UseCaseHelper {
         public string Resultaat { get; set; }
         public Point Position { get; set; }
 
+        public UseCase() { }
+
         public UseCase(string naam, string samenvatting, string aannamen, string beschrijving,
             string uitzonderingen, string resultaat, Point position) {
             Naam = naam;
