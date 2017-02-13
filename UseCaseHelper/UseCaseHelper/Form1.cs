@@ -9,9 +9,69 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace UseCaseHelper {
+
+    public enum Element {
+        Actor,
+        UseCase,
+        Line
+    }
+
+    public enum Mode {
+        Create,
+        Select
+    }
+
     public partial class Form1 : Form {
+        private Element element = Element.Actor;
+        private Mode mode = Mode.Create;
+
         public Form1() {
             InitializeComponent();
+            DoubleBuffered = true;
+            ResizeRedraw = false;
         }
+
+        private void pnCanvas_Paint(object sender, PaintEventArgs e) {
+
+        }
+
+        private void pbCanvas_Click(object sender, EventArgs e) {
+            if (mode == Mode.Create) {
+                switch (element) {
+                    case Element.Actor:
+                        break;
+                    case Element.UseCase:
+                        break;
+                    case Element.Line:
+                        break;
+                }
+            }
+            else {
+
+            }
+        }
+
+
+        #region RadioButtons
+        private void rbActor_CheckedChanged(object sender, EventArgs e) {
+            if (rbActor.Checked) element = Element.Actor;
+        }
+
+        private void rbUseCase_CheckedChanged(object sender, EventArgs e) {
+            if (rbUseCase.Checked) element = Element.UseCase;
+        }
+
+        private void rbLine_CheckedChanged(object sender, EventArgs e) {
+            if (rbLine.Checked) element = Element.Line;
+        }
+
+        private void rbCreate_CheckedChanged(object sender, EventArgs e) {
+            if (rbCreate.Checked) mode = Mode.Create;
+        }
+
+        private void rbSelect_CheckedChanged(object sender, EventArgs e) {
+            if (rbSelect.Checked) mode = Mode.Select;
+        }
+        #endregion
     }
 }
