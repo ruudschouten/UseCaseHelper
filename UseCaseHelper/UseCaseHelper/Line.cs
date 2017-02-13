@@ -17,5 +17,10 @@ namespace UseCaseHelper {
             Actor = a;
             StartPosition = a.Position;
         }
+
+        public void FinishLine(UseCase u) {
+            UseCase = u;
+            EndPosition = u.Position;
+        }
     }
 }
