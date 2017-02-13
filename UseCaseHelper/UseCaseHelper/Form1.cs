@@ -25,6 +25,8 @@ namespace UseCaseHelper {
         private Element element = Element.Actor;
         private Mode mode = Mode.Create;
 
+        private List<UseCase> useCases = new List<UseCase>();
+
         public Form1() {
             InitializeComponent();
             DoubleBuffered = true;
@@ -36,11 +38,16 @@ namespace UseCaseHelper {
         }
 
         private void pbCanvas_Click(object sender, EventArgs e) {
+            var position = MousePosition;
             if (mode == Mode.Create) {
                 switch (element) {
                     case Element.Actor:
                         break;
                     case Element.UseCase:
+                        UseCase useCase = new UseCase();
+                        var useCaseForm = new UseCaseCreateForm(useCase, position);
+                        useCaseForm.ShowDialog();
+                        useCases.Add(useCaseForm.GetUseCase());
                         break;
                     case Element.Line:
                         break;
