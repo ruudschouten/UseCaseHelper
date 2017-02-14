@@ -22,5 +22,9 @@ namespace UseCaseHelper {
             UseCase = u;
             EndPosition = u.Position;
         }
+
+        public void Draw(Graphics g, Pen p) {
+            g.DrawLine(p, StartPosition, EndPosition);
+        }
     }
 }

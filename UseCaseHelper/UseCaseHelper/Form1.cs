@@ -27,6 +27,10 @@ namespace UseCaseHelper {
 
         private List<UseCase> useCases = new List<UseCase>();
         private List<Actor> actoren = new List<Actor>();
+        private List<Line> lines = new List<Line>();
+
+        private bool drawingLine;
+        private Line currentLine;
 
         public Form1() {
             InitializeComponent();
@@ -42,6 +46,9 @@ namespace UseCaseHelper {
             foreach (var actor in actoren) {
                 actor.Draw(e.Graphics, black);
             }
+            foreach (var line in lines) {
+                line.Draw(e.Graphics, black);
+            }
         }
 
         private void pbCanvas_Click(object sender, EventArgs e) {
@@ -49,12 +56,12 @@ namespace UseCaseHelper {
             if (mode == Mode.Create) {
                 switch (element) {
                     case Element.Actor:
-                        Actor a = new Actor();
-                        var actorForm = new ActorCreateForm(a, position);
+                        Actor actor = new Actor();
+                        var actorForm = new ActorCreateForm(actor, position);
                         actorForm.ShowDialog();
-                        a = actorForm.GetActor();
-                        if (!string.IsNullOrEmpty(a.Naam)) {
-                            actoren.Add(a);
+                        actor = actorForm.GetActor();
+                        if (!string.IsNullOrEmpty(actor.Naam)) {
+                            actoren.Add(actor);
                         }
                         break;
                     case Element.UseCase:
@@ -67,6 +74,28 @@ namespace UseCaseHelper {
                         }
                         break;
                     case Element.Line:
+                        if (!drawingLine) {
+                            //Check if mouse is on Actor
+                            foreach (var a in actoren) {
+                                if (a.RectanglePos.Contains(position)) {
+                                    drawingLine = true;
+                                    currentLine = new Line(a);
+                                    break;
+                                }
+                            }
+                        }
+                        else {
+                            //Check if mouse is on Use Case
+                            foreach (var u in useCases) {
+                                if (u.RectanglePos.Contains(position)) {
+                                    drawingLine = true;
+                                    currentLine.FinishLine(u);
+                                    lines.Add(currentLine);
+                                    drawingLine = false;
+                                    break;
+                                }
+                            }
+                        }
                         break;
                 }
             }
@@ -98,7 +127,6 @@ namespace UseCaseHelper {
             }
             pbCanvas.Invalidate();
         }
-
 
         #region RadioButtons
         private void rbActor_CheckedChanged(object sender, EventArgs e) {
