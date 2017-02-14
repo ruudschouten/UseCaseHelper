@@ -100,29 +100,21 @@ namespace UseCaseHelper {
                 }
             }
             else {
-                switch (element) {
-                    case Element.Actor:
-                        for (var i = 0; i < actoren.Count; i++) {
-                            var actor = actoren[i];
-                            if (actor.RectanglePos.Contains(position)) {
-                                var actorForm = new ActorCreateForm(actor);
-                                actorForm.ShowDialog();
-                                actoren[i] = actorForm.GetActor();
-                            }
-                        }
-                        break;
-                    case Element.UseCase:
-                        for (var i = 0; i < useCases.Count; i++) {
-                            var useCase = useCases[i];
-                            if (useCase.RectanglePos.Contains(position)) {
-                                var useCaseForm = new UseCaseCreateForm(useCase);
-                                useCaseForm.ShowDialog();
-                                useCases[i] = useCaseForm.GetUseCase();
-                            }
-                        }
-                        break;
-                    case Element.Line:
-                        break;
+                for (var i = 0; i < actoren.Count; i++) {
+                    var actor = actoren[i];
+                    if (actor.RectanglePos.Contains(position)) {
+                        var actorForm = new ActorCreateForm(actor);
+                        actorForm.ShowDialog();
+                        actoren[i] = actorForm.GetActor();
+                    }
+                }
+                for (var i = 0; i < useCases.Count; i++) {
+                    var useCase = useCases[i];
+                    if (useCase.RectanglePos.Contains(position)) {
+                        var useCaseForm = new UseCaseCreateForm(useCase);
+                        useCaseForm.ShowDialog();
+                        useCases[i] = useCaseForm.GetUseCase();
+                    }
                 }
             }
             pbCanvas.Invalidate();
@@ -149,6 +141,6 @@ namespace UseCaseHelper {
             if (rbSelect.Checked) mode = Mode.Select;
         }
         #endregion
-        
+
     }
 }
