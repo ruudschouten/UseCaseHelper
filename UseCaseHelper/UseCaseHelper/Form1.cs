@@ -40,14 +40,14 @@ namespace UseCaseHelper {
 
         private void pnCanvas_Paint(object sender, PaintEventArgs e) {
             Pen black = Pens.Black;
+            foreach (var line in lines) {
+                line.Draw(e.Graphics, black);
+            }
             foreach (var useCase in useCases) {
                 useCase.Draw(e.Graphics, black);
             }
             foreach (var actor in actoren) {
                 actor.Draw(e.Graphics, black);
-            }
-            foreach (var line in lines) {
-                line.Draw(e.Graphics, black);
             }
         }
 
