@@ -61,6 +61,14 @@ namespace UseCaseHelper {
                     case Element.Actor:
                         break;
                     case Element.UseCase:
+                        for (var i = 0; i < useCases.Count; i++) {
+                            var useCase = useCases[i];
+                            if (useCase.RectanglePos.Contains(position)) {
+                                var useCaseForm = new UseCaseCreateForm(useCase);
+                                useCaseForm.ShowDialog();
+                                useCases[i] = useCaseForm.GetUseCase();
+                            }
+                        }
                         break;
                     case Element.Line:
                         break;

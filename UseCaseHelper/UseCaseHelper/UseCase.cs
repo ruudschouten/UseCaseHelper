@@ -41,5 +41,13 @@ namespace UseCaseHelper {
             g.DrawString(Naam, font, new SolidBrush(Color.Black), new PointF(RectanglePos.X + 10, RectanglePos.Y + stringSize.Height / 2));
             g.DrawEllipse(p, RectanglePos);
         }
+
+        public string GetActoren() {
+            string actoren = "";
+            foreach (var actor in Actoren) {
+                actoren += $"{actor} "; 
+            }
+            return actoren;
+        }
     }
 }

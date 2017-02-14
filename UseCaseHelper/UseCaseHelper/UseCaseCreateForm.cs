@@ -16,6 +16,18 @@ namespace UseCaseHelper {
             InitializeComponent();
         }
 
+        public UseCaseCreateForm(UseCase u) : this() {
+            useCase = u;
+            tbNaam.Text = useCase.Naam;
+            tbSamenvatting.Text = useCase.Samenvatting;
+            tbActoren.Text = useCase.GetActoren();
+            tbAannamen.Text = useCase.Aannamen;
+            rtbBeschrijving.Text = useCase.Beschrijving;
+            rtbUitzonderingen.Text = useCase.Uitzonderingen;
+            tbResultaat.Text = useCase.Resultaat;
+            position = useCase.Position;
+        }
+
         public UseCaseCreateForm(UseCase u, Point position) : this() {
             useCase = u;
             this.position = position;
