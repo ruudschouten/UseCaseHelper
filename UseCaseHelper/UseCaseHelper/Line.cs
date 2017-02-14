@@ -15,12 +15,12 @@ namespace UseCaseHelper {
 
         public Line(Actor a) {
             Actor = a;
-            StartPosition = a.Position;
+            StartPosition = a.GetCenter();
         }
 
         public void FinishLine(UseCase u) {
             UseCase = u;
-            EndPosition = u.Position;
+            EndPosition = u.GetCenter();
         }
 
         public void Draw(Graphics g, Pen p) {

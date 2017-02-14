@@ -34,18 +34,28 @@ namespace UseCaseHelper {
             Actoren.Add(a);
         }
 
+        public Point GetCenter() {
+            return new Point(RectanglePos.Left + RectanglePos.Width / 2, RectanglePos.Top + RectanglePos.Height / 2);
+        }
+
         public void Draw(Graphics g, Pen p) {
             Font font = new Font("Arial", 14);
             SizeF stringSize = g.MeasureString(Naam, font);
             RectanglePos = new Rectangle(Position, new Size((int)stringSize.Width + 20, (int)stringSize.Height + 20));
-            g.DrawString(Naam, font, new SolidBrush(Color.Black), new PointF(RectanglePos.X + 10, RectanglePos.Y + stringSize.Height / 2));
+            g.FillEllipse(new SolidBrush(Color.White), RectanglePos);
             g.DrawEllipse(p, RectanglePos);
+            g.DrawString(Naam, font, new SolidBrush(Color.Black), new PointF(RectanglePos.X + 10, RectanglePos.Y + stringSize.Height / 2));
         }
 
         public string GetActoren() {
             string actoren = "";
             foreach (var actor in Actoren) {
-                actoren += $"{actor} "; 
+                if (actor != Actoren[Actoren.Count - 1]) {
+                    actoren += $"{actor}, ";
+                }
+                else {
+                    actoren += $"{actor}.";
+                }
             }
             return actoren;
         }
