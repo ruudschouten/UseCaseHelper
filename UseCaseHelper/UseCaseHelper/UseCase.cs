@@ -38,7 +38,7 @@ namespace UseCaseHelper {
             Font font = new Font("Arial", 14);
             SizeF stringSize = g.MeasureString(Naam, font);
             RectanglePos = new Rectangle(Position, new Size((int)stringSize.Width + 20, (int)stringSize.Height + 20));
-            g.DrawString(Naam, font, new SolidBrush(Color.Black), new PointF(RectanglePos.X, RectanglePos.Y + stringSize.Height/2));
+            g.DrawString(Naam, font, new SolidBrush(Color.Black), new PointF(RectanglePos.X + 10, RectanglePos.Y + stringSize.Height / 2));
             g.DrawEllipse(p, RectanglePos);
         }
     }
