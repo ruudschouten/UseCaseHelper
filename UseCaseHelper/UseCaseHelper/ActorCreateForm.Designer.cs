@@ -64,7 +64,7 @@
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.label1);
             this.Name = "ActorCreateForm";
-            this.Text = "ActorCreateForm";
+            this.Text = "Property";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ActorCreateForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
