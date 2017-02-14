@@ -34,11 +34,14 @@ namespace UseCaseHelper {
         }
 
         private void pnCanvas_Paint(object sender, PaintEventArgs e) {
-
+            Pen black = Pens.Black;
+            foreach (var useCase in useCases) {
+                useCase.Draw(e.Graphics, black);
+            }
         }
 
         private void pbCanvas_Click(object sender, EventArgs e) {
-            var position = MousePosition;
+            var position = pbCanvas.PointToClient(MousePosition);
             if (mode == Mode.Create) {
                 switch (element) {
                     case Element.Actor:
@@ -54,8 +57,16 @@ namespace UseCaseHelper {
                 }
             }
             else {
-
+                switch (element) {
+                    case Element.Actor:
+                        break;
+                    case Element.UseCase:
+                        break;
+                    case Element.Line:
+                        break;
+                }
             }
+            pbCanvas.Invalidate();
         }
 
 
@@ -80,5 +91,6 @@ namespace UseCaseHelper {
             if (rbSelect.Checked) mode = Mode.Select;
         }
         #endregion
+        
     }
 }
