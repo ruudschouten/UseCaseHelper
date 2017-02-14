@@ -43,7 +43,16 @@ namespace UseCaseHelper {
             string resultaat = tbResultaat.Text;
             if (string.IsNullOrEmpty(naam) || string.IsNullOrEmpty(samenvatting) || string.IsNullOrEmpty(aannamen) ||
                 string.IsNullOrEmpty(beschrijving) || string.IsNullOrEmpty(uitzonderingen) || string.IsNullOrEmpty(resultaat)) {
-                MessageBox.Show("Een of meerdere velden zijn niet ingevuld");
+                var messageResult = MessageBox.Show("Niet alle velden zijn ingevuld, wilt u toch afsluiten?", "Onopgeslagen aanpassingein!", MessageBoxButtons.YesNo);
+                switch (messageResult) {
+                    case DialogResult.None:
+                    case DialogResult.No:
+                        e.Cancel = true;
+                        break;
+                    case DialogResult.Yes:
+                        e.Cancel = false;
+                        break;
+                }
             }
             else {
                 useCase = new UseCase(naam, samenvatting, aannamen, beschrijving, uitzonderingen, resultaat, position);

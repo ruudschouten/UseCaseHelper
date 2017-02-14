@@ -50,7 +50,10 @@ namespace UseCaseHelper {
                         UseCase useCase = new UseCase();
                         var useCaseForm = new UseCaseCreateForm(useCase, position);
                         useCaseForm.ShowDialog();
-                        useCases.Add(useCaseForm.GetUseCase());
+                        useCase = useCaseForm.GetUseCase();
+                        if (!string.IsNullOrEmpty(useCase.Naam)) {
+                            useCases.Add(useCase);
+                        }
                         break;
                     case Element.Line:
                         break;
