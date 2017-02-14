@@ -143,5 +143,11 @@ namespace UseCaseHelper {
         }
         #endregion
 
+        private void btnClearAll_Click(object sender, EventArgs e) {
+            actoren.Clear();
+            useCases.Clear();
+            lines.Clear();
+            pbCanvas.Invalidate();
+        }
     }
 }
