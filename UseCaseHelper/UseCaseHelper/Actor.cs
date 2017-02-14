@@ -20,5 +20,9 @@ namespace UseCaseHelper {
         public void Paint(Graphics g) {
 
         }
+
+        public override string ToString() {
+            return Naam;
+        }
     }
 }
