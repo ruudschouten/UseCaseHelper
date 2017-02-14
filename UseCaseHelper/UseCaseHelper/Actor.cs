@@ -9,6 +9,7 @@ namespace UseCaseHelper {
     public class Actor {
         public string Naam { get; set; }
         public Point Position { get; set; }
+        public Rectangle RectanglePos { get; set; }
 
         public Actor() { }
 
@@ -17,8 +18,14 @@ namespace UseCaseHelper {
             Position = position;
         }
 
-        public void Paint(Graphics g) {
-
+        public void Draw(Graphics g, Pen p) {
+            int center;
+            Font font = new Font("Arial", 14);
+            SizeF stringSize = g.MeasureString(Naam, font);
+            RectanglePos = new Rectangle(Position, new Size(64, 96));
+            center = RectanglePos.Width / 2;
+            g.DrawRectangle(p, RectanglePos);
+            g.DrawString(Naam, font, new SolidBrush(Color.Black), new PointF(RectanglePos.X + center - stringSize.Width / 2, RectanglePos.Y + RectanglePos.Height));
         }
 
         public override string ToString() {

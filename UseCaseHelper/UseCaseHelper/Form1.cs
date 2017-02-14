@@ -26,6 +26,7 @@ namespace UseCaseHelper {
         private Mode mode = Mode.Create;
 
         private List<UseCase> useCases = new List<UseCase>();
+        private List<Actor> actoren = new List<Actor>();
 
         public Form1() {
             InitializeComponent();
@@ -38,6 +39,9 @@ namespace UseCaseHelper {
             foreach (var useCase in useCases) {
                 useCase.Draw(e.Graphics, black);
             }
+            foreach (var actor in actoren) {
+                actor.Draw(e.Graphics, black);
+            }
         }
 
         private void pbCanvas_Click(object sender, EventArgs e) {
@@ -45,6 +49,13 @@ namespace UseCaseHelper {
             if (mode == Mode.Create) {
                 switch (element) {
                     case Element.Actor:
+                        Actor a = new Actor();
+                        var actorForm = new ActorCreateForm(a, position);
+                        actorForm.ShowDialog();
+                        a = actorForm.GetActor();
+                        if (!string.IsNullOrEmpty(a.Naam)) {
+                            actoren.Add(a);
+                        }
                         break;
                     case Element.UseCase:
                         UseCase useCase = new UseCase();
