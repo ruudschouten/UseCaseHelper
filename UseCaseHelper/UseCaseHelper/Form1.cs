@@ -90,6 +90,7 @@ namespace UseCaseHelper {
                                 if (u.RectanglePos.Contains(position)) {
                                     drawingLine = true;
                                     currentLine.FinishLine(u);
+                                    u.VoegActorToe(currentLine.Actor);
                                     lines.Add(currentLine);
                                     drawingLine = false;
                                     break;
