@@ -62,7 +62,7 @@ namespace UseCaseHelper {
                     foreach (var a in actoren) {
                         if (a.Naam == tbNaam.Text) {
                             exists = true;
-                            MessageBox.Show("Gebruikersnaam bestaat al");
+                            MessageBox.Show("Naam is al in gebruik.");
                         }
                     }
                     if (!exists) {
