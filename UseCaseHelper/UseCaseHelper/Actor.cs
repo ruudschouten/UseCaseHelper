@@ -17,6 +17,10 @@ namespace UseCaseHelper {
             Naam = naam;
             Position = position;
         }
+
+        public static Actor Clone(Actor a) {
+            return new Actor(a.Naam, a.Position);
+        }
         public Point GetCenter() {
             return new Point(RectanglePos.Left + RectanglePos.Width / 2, RectanglePos.Top + RectanglePos.Height / 2);
         }
