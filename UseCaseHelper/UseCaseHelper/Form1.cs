@@ -179,16 +179,25 @@ namespace UseCaseHelper {
 
         #region Events
         #region RadioButtons
+
+        private void SetCreateMode() {
+            rbCreate.Checked = true;
+            rbSelect.Checked = false;
+            mode = Mode.Create;
+        }
         private void rbActor_CheckedChanged(object sender, EventArgs e) {
             if (rbActor.Checked) element = Element.Actor;
+            SetCreateMode();
         }
 
         private void rbUseCase_CheckedChanged(object sender, EventArgs e) {
             if (rbUseCase.Checked) element = Element.UseCase;
+            SetCreateMode();
         }
 
         private void rbLine_CheckedChanged(object sender, EventArgs e) {
             if (rbLine.Checked) element = Element.Line;
+            SetCreateMode();
         }
 
         private void rbCreate_CheckedChanged(object sender, EventArgs e) {
