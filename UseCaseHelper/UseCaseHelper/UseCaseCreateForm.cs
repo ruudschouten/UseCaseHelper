@@ -66,6 +66,10 @@ namespace UseCaseHelper {
         public UseCase GetUseCase() {
             return useCase;
         }
+
+        private void btnClose_Click(object sender, EventArgs e) {
+            Close();
+        }
     }
 }
 

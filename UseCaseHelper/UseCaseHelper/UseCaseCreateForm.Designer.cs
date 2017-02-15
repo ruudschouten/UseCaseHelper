@@ -37,6 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tbNaam = new System.Windows.Forms.TextBox();
+            this.btnClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbResultaat
@@ -155,11 +156,22 @@
             this.tbNaam.Size = new System.Drawing.Size(172, 20);
             this.tbNaam.TabIndex = 21;
             // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(199, 321);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.TabIndex = 35;
+            this.btnClose.Text = "Create";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // UseCaseCreateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 332);
+            this.ClientSize = new System.Drawing.Size(284, 356);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.tbResultaat);
             this.Controls.Add(this.lbResultaat);
             this.Controls.Add(this.rtbUitzonderingen);
@@ -198,5 +210,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbNaam;
+        private System.Windows.Forms.Button btnClose;
     }
 }
