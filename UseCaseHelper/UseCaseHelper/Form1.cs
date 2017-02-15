@@ -89,7 +89,6 @@ namespace UseCaseHelper {
             for (var i = 0; i < actoren.Count; i++) {
                 var actor = actoren[i];
                 if (actor.RectanglePos.Contains(position)) {
-                    //TODO: Continue this
                     string prevName = actor.Naam;
                     var actorForm = new ActorCreateForm(actor);
                     actorForm.ShowDialog();
