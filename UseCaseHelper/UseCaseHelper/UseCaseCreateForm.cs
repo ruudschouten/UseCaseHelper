@@ -20,6 +20,7 @@ namespace UseCaseHelper {
             useCase = u;
             tbNaam.Text = useCase.Naam;
             tbSamenvatting.Text = useCase.Samenvatting;
+            useCase.Actoren = u.Actoren;
             tbActoren.Text = useCase.GetActoren();
             tbAannamen.Text = useCase.Aannamen;
             rtbBeschrijving.Text = useCase.Beschrijving;
@@ -55,7 +56,9 @@ namespace UseCaseHelper {
                 }
             }
             else {
+                var actoren = useCase.Actoren;
                 useCase = new UseCase(naam, samenvatting, aannamen, beschrijving, uitzonderingen, resultaat, position);
+                useCase.Actoren = actoren;
                 e.Cancel = false;
             }
         }
