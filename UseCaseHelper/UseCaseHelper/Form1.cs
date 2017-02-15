@@ -32,6 +32,8 @@ namespace UseCaseHelper {
         private bool drawingLine;
         private Line currentLine;
 
+        private bool isDeleting;
+
         public Form1() {
             InitializeComponent();
             DoubleBuffered = true;
@@ -53,74 +55,129 @@ namespace UseCaseHelper {
 
         private void pbCanvas_Click(object sender, EventArgs e) {
             var position = pbCanvas.PointToClient(MousePosition);
-            if (mode == Mode.Create) {
-                switch (element) {
-                    case Element.Actor:
-                        Actor actor = new Actor();
-                        var actorForm = new ActorCreateForm(actor, position);
-                        actorForm.ShowDialog();
-                        actor = actorForm.GetActor();
-                        if (!string.IsNullOrEmpty(actor.Naam)) {
-                            actoren.Add(actor);
-                        }
-                        break;
-                    case Element.UseCase:
-                        UseCase useCase = new UseCase();
-                        var useCaseForm = new UseCaseCreateForm(useCase, position);
-                        useCaseForm.ShowDialog();
-                        useCase = useCaseForm.GetUseCase();
-                        if (!string.IsNullOrEmpty(useCase.Naam)) {
-                            useCases.Add(useCase);
-                        }
-                        break;
-                    case Element.Line:
-                        if (!drawingLine) {
-                            //Check if mouse is on Actor
-                            foreach (var a in actoren) {
-                                if (a.RectanglePos.Contains(position)) {
-                                    drawingLine = true;
-                                    currentLine = new Line(a);
-                                    break;
-                                }
-                            }
-                        }
-                        else {
-                            //Check if mouse is on Use Case
-                            foreach (var u in useCases) {
-                                if (u.RectanglePos.Contains(position)) {
-                                    drawingLine = true;
-                                    currentLine.FinishLine(u);
-                                    u.VoegActorToe(currentLine.Actor);
-                                    lines.Add(currentLine);
-                                    drawingLine = false;
-                                    break;
-                                }
-                            }
-                        }
-                        break;
-                }
+            if (isDeleting) {
+                DeleteElement(position);
             }
             else {
-                for (var i = 0; i < actoren.Count; i++) {
-                    var actor = actoren[i];
-                    if (actor.RectanglePos.Contains(position)) {
-                        var actorForm = new ActorCreateForm(actor);
-                        actorForm.ShowDialog();
-                        actoren[i] = actorForm.GetActor();
+                if (mode == Mode.Create) {
+                    switch (element) {
+                        case Element.Actor: CreateActor(position); break;
+                        case Element.UseCase: CreateUseCase(position); break;
+                        case Element.Line: CreateLine(position); break;
                     }
                 }
-                for (var i = 0; i < useCases.Count; i++) {
-                    var useCase = useCases[i];
-                    if (useCase.RectanglePos.Contains(position)) {
-                        var useCaseForm = new UseCaseCreateForm(useCase);
-                        useCaseForm.ShowDialog();
-                        useCases[i] = useCaseForm.GetUseCase();
-                    }
+                else {
+                    SelectActor(position);
+                    SelectUseCase(position);
                 }
             }
             pbCanvas.Invalidate();
         }
 
+        private void SelectUseCase(Point position) {
+            for (var i = 0; i < useCases.Count; i++) {
+                var useCase = useCases[i];
+                if (useCase.RectanglePos.Contains(position)) {
+                    var useCaseForm = new UseCaseCreateForm(useCase);
+                    useCaseForm.ShowDialog();
+                    useCases[i] = useCaseForm.GetUseCase();
+                }
+            }
+        }
+
+        private void SelectActor(Point position) {
+            for (var i = 0; i < actoren.Count; i++) {
+                var actor = actoren[i];
+                if (actor.RectanglePos.Contains(position)) {
+                    var actorForm = new ActorCreateForm(actor);
+                    actorForm.ShowDialog();
+                    actoren[i] = actorForm.GetActor();
+                }
+            }
+        }
+
+        private void CreateLine(Point position) {
+            if (!drawingLine) {
+                //Check if mouse is on Actor
+                foreach (var a in actoren) {
+                    if (a.RectanglePos.Contains(position)) {
+                        drawingLine = true;
+                        currentLine = new Line(a);
+                        break;
+                    }
+                }
+            }
+            else {
+                //Check if mouse is on Use Case
+                foreach (var u in useCases) {
+                    if (u.RectanglePos.Contains(position)) {
+                        drawingLine = true;
+                        currentLine.FinishLine(u);
+                        u.VoegActorToe(Actor.Clone(currentLine.Actor));
+                        lines.Add(currentLine);
+                        drawingLine = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void CreateUseCase(Point position) {
+            UseCase useCase = new UseCase();
+            var useCaseForm = new UseCaseCreateForm(useCase, position);
+            useCaseForm.ShowDialog();
+            useCase = useCaseForm.GetUseCase();
+            if (!string.IsNullOrEmpty(useCase.Naam)) {
+                useCases.Add(useCase);
+            }
+        }
+
+        private void CreateActor(Point position) {
+            Actor actor = new Actor();
+            var actorForm = new ActorCreateForm(actor, actoren, position);
+            actorForm.ShowDialog();
+            actor = actorForm.GetActor();
+            if (!string.IsNullOrEmpty(actor.Naam)) {
+                actoren.Add(actor);
+            }
+        }
+
+        private void DeleteElement(Point position) {
+            DeleteActor(position);
+            DeleteUseCase(position);
+        }
+
+        private void DeleteUseCase(Point position) {
+//            for (var i = 0; i < useCases.Count; i++) {
+//                var useCase = useCases[i];
+//                if (useCase.RectanglePos.Contains(position)) {
+//                    for (var j = 0; j < lines.Count; j++) {
+//                        var line = lines[j];
+//                        if (line.UseCase == useCase) { lines.Remove(line); }
+//                    }
+//                    useCases.Remove(useCase);
+//                }
+//            }
+        }
+
+        private void DeleteActor(Point position) {
+            for (var i = 0; i < actoren.Count; i++) {
+                var actor = actoren[i];
+                if (actor.RectanglePos.Contains(position)) {
+                    foreach (var useCase in useCases) {
+                        useCase.VerwijderActorAlsBestaat(actor);
+                    }
+                    for (var j = 0; j < lines.Count; j++) {
+                        var line = lines[j];
+                        if (line.Actor == actor) { lines.Remove(line); }
+                    }
+                    actoren.Remove(actor);
+                    break;
+                }
+            }
+        }
+
+        #region Events
         #region RadioButtons
         private void rbActor_CheckedChanged(object sender, EventArgs e) {
             if (rbActor.Checked) element = Element.Actor;
@@ -142,12 +199,25 @@ namespace UseCaseHelper {
             if (rbSelect.Checked) mode = Mode.Select;
         }
         #endregion
-
+        #region Buttons
         private void btnClearAll_Click(object sender, EventArgs e) {
             actoren.Clear();
             useCases.Clear();
             lines.Clear();
             pbCanvas.Invalidate();
         }
+
+        private void btnDelete_Click(object sender, EventArgs e) {
+            if (isDeleting) {
+                isDeleting = false;
+                btnDelete.Text = "Delete";
+            }
+            else {
+                isDeleting = true;
+                btnDelete.Text = "Stop";
+            }
+        }
+        #endregion
+        #endregion
     }
 }
