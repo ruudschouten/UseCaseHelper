@@ -51,6 +51,16 @@ namespace UseCaseHelper {
             }
         }
 
+        public void PasAanAlsBestaat(Actor a, string prevName) {
+            if (Actoren == null) throw new Exception("Geen actoren gevonden");
+            for (var i = 0; i < Actoren.Count; i++) {
+                var actor = Actoren[i];
+                if (actor.Naam == prevName) {
+                    Actoren[i] = a;
+                }
+            }
+        }
+
         public Point GetCenter() {
             return new Point(RectanglePos.Left + RectanglePos.Width / 2, RectanglePos.Top + RectanglePos.Height / 2);
         }
