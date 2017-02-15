@@ -35,7 +35,8 @@ namespace UseCaseHelper {
         private void ActorCreateForm_FormClosing(object sender, FormClosingEventArgs e) {
             e.Cancel = true;
             if (string.IsNullOrEmpty(tbNaam.Text)) {
-                var messageResult = MessageBox.Show("Naam is niet ingevuld, wilt u toch afsluiten?", "Onopgeslagen aanpassingein!", MessageBoxButtons.YesNo);
+                var messageResult = MessageBox.Show("Naam is niet ingevuld, wilt u toch afsluiten?",
+                    "Onopgeslagen aanpassingein!", MessageBoxButtons.YesNo);
                 switch (messageResult) {
                     case DialogResult.None:
                     case DialogResult.No:
@@ -46,8 +47,10 @@ namespace UseCaseHelper {
                         break;
                 }
             }
-            actor = new Actor(tbNaam.Text, position);
-            e.Cancel = false;
+            else {
+                actor = new Actor(tbNaam.Text, position);
+                e.Cancel = false;
+            }
         }
 
         public Actor GetActor() {
