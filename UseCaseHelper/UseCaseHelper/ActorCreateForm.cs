@@ -11,7 +11,9 @@ using System.Windows.Forms;
 namespace UseCaseHelper {
     public partial class ActorCreateForm : Form {
         private Actor actor;
+        private List<Actor> actoren;
         private Point position;
+        private bool editing = false;
         public ActorCreateForm() {
             InitializeComponent();
             ActiveControl = tbNaam;
@@ -21,15 +23,17 @@ namespace UseCaseHelper {
             actor = a;
             tbNaam.Text = a.Naam;
             position = actor.Position;
+            editing = true;
         }
 
-        public ActorCreateForm(Actor a, Point position) : this() {
+        public ActorCreateForm(Actor a, List<Actor>actoren, Point position) : this() {
             actor = a;
+            this.actoren = actoren;
             this.position = position;
         }
 
         private void btnCreate_Click(object sender, EventArgs e) {
-            Close();
+            this.Close();
         }
 
         private void ActorCreateForm_FormClosing(object sender, FormClosingEventArgs e) {
@@ -48,8 +52,24 @@ namespace UseCaseHelper {
                 }
             }
             else {
-                actor = new Actor(tbNaam.Text, position);
-                e.Cancel = false;
+                if (editing) {
+                    actor = new Actor(tbNaam.Text, position);
+                    e.Cancel = false;
+                }
+                else {
+
+                    bool exists = false;
+                    foreach (var a in actoren) {
+                        if (a.Naam == tbNaam.Text) {
+                            exists = true;
+                            MessageBox.Show("Gebruikersnaam bestaat al");
+                        }
+                    }
+                    if (!exists) {
+                        actor = new Actor(tbNaam.Text, position);
+                        e.Cancel = false;
+                    }
+                }
             }
         }
 
