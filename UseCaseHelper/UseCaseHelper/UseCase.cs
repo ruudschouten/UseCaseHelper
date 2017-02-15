@@ -31,7 +31,24 @@ namespace UseCaseHelper {
         }
 
         public void VoegActorToe(Actor a) {
-            Actoren.Add(a);
+            bool contains = false;
+            foreach (var actor in Actoren) {
+                if (actor.Naam == a.Naam) {
+                    contains = true;
+                    break;
+                }
+            }
+            if (!contains) Actoren.Add(a);
+        }
+
+        public void VerwijderActorAlsBestaat(Actor a) {
+            if (Actoren == null) throw new Exception("Geen actoren gevonden");
+            for (var i = 0; i < Actoren.Count; i++) {
+                var actor = Actoren[i];
+                if (actor.Naam == a.Naam) {
+                    Actoren.RemoveAt(i);
+                }
+            }
         }
 
         public Point GetCenter() {
