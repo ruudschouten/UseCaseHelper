@@ -49,7 +49,7 @@ namespace UseCaseHelper {
                 useCase.Draw(e.Graphics);
             }
             foreach (var actor in actoren) {
-                actor.Draw(e.Graphics, black);
+                actor.Draw(e.Graphics);
             }
         }
 
@@ -91,11 +91,14 @@ namespace UseCaseHelper {
         private void SelectActor(Point position) {
             for (var i = 0; i < actoren.Count; i++) {
                 var actor = actoren[i];
+                actor.Pen = Pens.Red;
+                pbCanvas.Invalidate();
                 if (actor.RectanglePos.Contains(position)) {
                     string prevName = actor.Naam;
                     var actorForm = new ActorCreateForm(actor);
                     actorForm.ShowDialog();
                     actoren[i] = actorForm.GetActor();
+                    actoren[i].Pen = Pens.Black;
                     actor = actoren[i];
                     if (actor.Naam != prevName) {
                         foreach (var useCase in useCases) {
