@@ -161,16 +161,18 @@ namespace UseCaseHelper {
         }
 
         private void DeleteUseCase(Point position) {
-//            for (var i = 0; i < useCases.Count; i++) {
-//                var useCase = useCases[i];
-//                if (useCase.RectanglePos.Contains(position)) {
-//                    for (var j = 0; j < lines.Count; j++) {
-//                        var line = lines[j];
-//                        if (line.UseCase == useCase) { lines.Remove(line); }
-//                    }
-//                    useCases.Remove(useCase);
-//                }
-//            }
+            for (var i = 0; i < useCases.Count; i++) {
+                var useCase = useCases[i];
+                if (useCase.RectanglePos.Contains(position)) {
+                    for (var j = 0; j < lines.Count; j++) {
+                        var line = lines[j--];
+                        if (line.UseCase.Naam == useCase.Naam) {
+                            lines.Remove(line);
+                        }
+                    }
+                    useCases.Remove(useCase);
+                }
+            }
         }
 
         private void DeleteActor(Point position) {
