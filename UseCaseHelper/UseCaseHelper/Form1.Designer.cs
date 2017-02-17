@@ -33,8 +33,11 @@
             this.pbCanvas = new System.Windows.Forms.Panel();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tssStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.gbElements.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbElements
@@ -129,7 +132,7 @@
             this.pbCanvas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbCanvas.Location = new System.Drawing.Point(12, 111);
             this.pbCanvas.Name = "pbCanvas";
-            this.pbCanvas.Size = new System.Drawing.Size(613, 390);
+            this.pbCanvas.Size = new System.Drawing.Size(613, 373);
             this.pbCanvas.TabIndex = 7;
             this.pbCanvas.Click += new System.EventHandler(this.pbCanvas_Click);
             this.pbCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pnCanvas_Paint);
@@ -156,11 +159,27 @@
             this.btnClearAll.UseVisualStyleBackColor = true;
             this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tssStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 489);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(640, 22);
+            this.statusStrip1.TabIndex = 11;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // tssStatus
+            // 
+            this.tssStatus.Name = "tssStatus";
+            this.tssStatus.Size = new System.Drawing.Size(0, 17);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(640, 511);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.gbElements);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pbCanvas);
@@ -172,6 +191,8 @@
             this.gbElements.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,6 +210,8 @@
         private System.Windows.Forms.Panel pbCanvas;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnClearAll;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel tssStatus;
     }
 }
 

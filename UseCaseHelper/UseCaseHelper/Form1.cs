@@ -38,10 +38,12 @@ namespace UseCaseHelper {
             InitializeComponent();
             DoubleBuffered = true;
             ResizeRedraw = false;
+            tssStatus.Text = "Klaar voor gebruik";
         }
 
         private void pnCanvas_Paint(object sender, PaintEventArgs e) {
             Pen black = Pens.Black;
+            
             foreach (var line in lines) {
                 line.Draw(e.Graphics, black);
             }
@@ -80,6 +82,7 @@ namespace UseCaseHelper {
                 if (useCase.RectanglePos.Contains(position)) {
                     useCase.SetPenColor(Pens.Red);
                     pbCanvas.Invalidate();
+                    tssStatus.Text = $"UseCase \"{useCase}\" geselecteerd";
                     var useCaseForm = new UseCaseCreateForm(useCase);
                     useCaseForm.ShowDialog();
                     useCases[i] = useCaseForm.GetUseCase();
@@ -95,6 +98,7 @@ namespace UseCaseHelper {
                     string prevName = actor.Naam;
                     actor.SetPenColor(Pens.Red);
                     pbCanvas.Invalidate();
+                    tssStatus.Text = $"Actor \"{actor}\" geselecteerd";
                     var actorForm = new ActorCreateForm(actor);
                     actorForm.ShowDialog();
                     actoren[i] = actorForm.GetActor();
@@ -114,6 +118,7 @@ namespace UseCaseHelper {
                 //Check if mouse is on Actor
                 foreach (var a in actoren) {
                     if (a.RectanglePos.Contains(position)) {
+                        tssStatus.Text = $"Lijn aan het maken vanaf \"{a}\"";
                         drawingLine = true;
                         currentLine = new Line(a);
                         break;
@@ -126,6 +131,7 @@ namespace UseCaseHelper {
                     if (u.RectanglePos.Contains(position)) {
                         drawingLine = true;
                         currentLine.FinishLine(u);
+                        tssStatus.Text = $"Lijn gemaakt tussen \"{currentLine.Actor}\" en \"{u}\"";
                         u.VoegActorToe(Actor.Clone(currentLine.Actor));
                         lines.Add(currentLine);
                         drawingLine = false;
@@ -136,22 +142,26 @@ namespace UseCaseHelper {
         }
 
         private void CreateUseCase(Point position) {
+            tssStatus.Text = "UseCase aan het maken";
             UseCase useCase = new UseCase();
             var useCaseForm = new UseCaseCreateForm(useCase, useCases, position);
             useCaseForm.ShowDialog();
             useCase = useCaseForm.GetUseCase();
             if (!string.IsNullOrEmpty(useCase.Naam)) {
                 useCases.Add(useCase);
+                tssStatus.Text = $"\"{useCase}\" aangemaakt";
             }
         }
 
         private void CreateActor(Point position) {
+            tssStatus.Text = "Actor aan het maken";
             Actor actor = new Actor();
             var actorForm = new ActorCreateForm(actor, actoren, position);
             actorForm.ShowDialog();
             actor = actorForm.GetActor();
             if (!string.IsNullOrEmpty(actor.Naam)) {
                 actoren.Add(actor);
+                tssStatus.Text = $"\"{actor}\" aangemaakt";
             }
         }
 
@@ -170,6 +180,8 @@ namespace UseCaseHelper {
                             lines.Remove(line);
                         }
                     }
+
+                    tssStatus.Text = $"\"{useCase}\" verwijderd";
                     useCases.Remove(useCase);
                 }
             }
@@ -188,6 +200,7 @@ namespace UseCaseHelper {
                             lines.Remove(line);
                         }
                     }
+                    tssStatus.Text = $"\"{actor}\" verwijderd";
                     actoren.Remove(actor);
                     break;
                 }
@@ -198,31 +211,38 @@ namespace UseCaseHelper {
         #region RadioButtons
 
         private void SetCreateMode() {
+            if (rbCreate.Checked) return;
             rbCreate.Checked = true;
             rbSelect.Checked = false;
+            tssStatus.Text = "In create mode";
             mode = Mode.Create;
         }
         private void rbActor_CheckedChanged(object sender, EventArgs e) {
             if (rbActor.Checked) element = Element.Actor;
+            tssStatus.Text = "Actor geselecteerd";
             SetCreateMode();
         }
 
         private void rbUseCase_CheckedChanged(object sender, EventArgs e) {
             if (rbUseCase.Checked) element = Element.UseCase;
+            tssStatus.Text = "UseCase geselecteerd";
             SetCreateMode();
         }
 
         private void rbLine_CheckedChanged(object sender, EventArgs e) {
             if (rbLine.Checked) element = Element.Line;
+            tssStatus.Text = "Line geselecteerd";
             SetCreateMode();
         }
 
         private void rbCreate_CheckedChanged(object sender, EventArgs e) {
             if (rbCreate.Checked) mode = Mode.Create;
+            tssStatus.Text = "In create mode";
         }
 
         private void rbSelect_CheckedChanged(object sender, EventArgs e) {
             if (rbSelect.Checked) mode = Mode.Select;
+            tssStatus.Text = "In select mode";
         }
         #endregion
         #region Buttons
@@ -231,12 +251,14 @@ namespace UseCaseHelper {
             useCases.Clear();
             lines.Clear();
             pbCanvas.Invalidate();
+            tssStatus.Text = "Canvas gecleared";
         }
 
         private void btnDelete_Click(object sender, EventArgs e) {
             if (isDeleting) {
                 isDeleting = false;
                 btnDelete.Text = "Delete";
+                tssStatus.Text = "In delete mode";
             }
             else {
                 isDeleting = true;
