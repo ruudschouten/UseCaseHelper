@@ -131,7 +131,7 @@ namespace UseCaseHelper {
 
         private void CreateUseCase(Point position) {
             UseCase useCase = new UseCase();
-            var useCaseForm = new UseCaseCreateForm(useCase, position);
+            var useCaseForm = new UseCaseCreateForm(useCase, useCases, position);
             useCaseForm.ShowDialog();
             useCase = useCaseForm.GetUseCase();
             if (!string.IsNullOrEmpty(useCase.Naam)) {
