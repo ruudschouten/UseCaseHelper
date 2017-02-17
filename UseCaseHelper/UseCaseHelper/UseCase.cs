@@ -96,5 +96,9 @@ namespace UseCaseHelper {
             }
             return actoren;
         }
+
+        public override string ToString() {
+            return $"{Naam}";
+        }
     }
 }
