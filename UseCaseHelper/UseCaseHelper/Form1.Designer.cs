@@ -35,6 +35,7 @@
             this.btnClearAll = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tssStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.rbSelectLine = new System.Windows.Forms.RadioButton();
             this.gbElements.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -89,6 +90,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.rbSelectLine);
             this.groupBox1.Controls.Add(this.rbSelect);
             this.groupBox1.Controls.Add(this.rbCreate);
             this.groupBox1.Location = new System.Drawing.Point(113, 12);
@@ -174,6 +176,18 @@
             this.tssStatus.Name = "tssStatus";
             this.tssStatus.Size = new System.Drawing.Size(0, 17);
             // 
+            // rbSelectLine
+            // 
+            this.rbSelectLine.AutoSize = true;
+            this.rbSelectLine.Location = new System.Drawing.Point(7, 67);
+            this.rbSelectLine.Name = "rbSelectLine";
+            this.rbSelectLine.Size = new System.Drawing.Size(79, 17);
+            this.rbSelectLine.TabIndex = 2;
+            this.rbSelectLine.TabStop = true;
+            this.rbSelectLine.Text = "Delete Line";
+            this.rbSelectLine.UseVisualStyleBackColor = true;
+            this.rbSelectLine.CheckedChanged += new System.EventHandler(this.rbSelectLine_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -212,6 +226,7 @@
         private System.Windows.Forms.Button btnClearAll;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel tssStatus;
+        private System.Windows.Forms.RadioButton rbSelectLine;
     }
 }
 

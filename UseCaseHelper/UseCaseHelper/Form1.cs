@@ -18,7 +18,8 @@ namespace UseCaseHelper {
 
     public enum Mode {
         Create,
-        Select
+        Select,
+        DeleteLine
     }
 
     public partial class Form1 : Form {
@@ -33,6 +34,9 @@ namespace UseCaseHelper {
         private Line currentLine;
 
         private bool isDeleting;
+        private bool isSelectingLine;
+        private Actor lineActor;
+        private UseCase lineUseCase;
 
         public Form1() {
             InitializeComponent();
@@ -43,7 +47,7 @@ namespace UseCaseHelper {
 
         private void pnCanvas_Paint(object sender, PaintEventArgs e) {
             Pen black = Pens.Black;
-            
+
             foreach (var line in lines) {
                 line.Draw(e.Graphics, black);
             }
@@ -61,19 +65,69 @@ namespace UseCaseHelper {
                 DeleteElement(position);
             }
             else {
-                if (mode == Mode.Create) {
-                    switch (element) {
-                        case Element.Actor: CreateActor(position); break;
-                        case Element.UseCase: CreateUseCase(position); break;
-                        case Element.Line: CreateLine(position); break;
-                    }
-                }
-                else {
-                    SelectActor(position);
-                    SelectUseCase(position);
+                switch (mode) {
+                    case Mode.Create:
+                        switch (element) {
+                            case Element.Actor: CreateActor(position); break;
+                            case Element.UseCase: CreateUseCase(position); break;
+                            case Element.Line: CreateLine(position); break;
+                        }
+                        break;
+                    case Mode.Select:
+                        SelectActor(position);
+                        SelectUseCase(position);
+                        break;
+                    case Mode.DeleteLine:
+                        SelectLine(position);
+                        break;
                 }
             }
             pbCanvas.Invalidate();
+        }
+
+        private void SelectLine(Point position) {
+            if (isSelectingLine) {
+                isSelectingLine = false;
+                lineUseCase = SelectLineEnd(position);
+                for (var i = 0; i < lines.Count; i++) {
+                    var line = lines[i];
+                    if (line.Actor == lineActor && line.UseCase == lineUseCase) {
+                        tssStatus.Text = $"Lijn verwijderd tussen \"{lineActor}\" en \"{lineUseCase}\"";
+                        lineUseCase.VerwijderActorAlsBestaat(lineActor);
+                        lines.Remove(line);
+                        lineUseCase.SetPenColor(Pens.Black);
+                        lineActor.SetPenColor(Pens.Black);
+                    }
+                }
+            }
+            else {
+                lineActor = SelectLineStart(position);
+                isSelectingLine = true;
+            }
+        }
+
+        private UseCase SelectLineEnd(Point position) {
+            foreach (var useCase in useCases) {
+                if (useCase.RectanglePos.Contains(position)) {
+                    useCase.SetPenColor(Pens.Red);
+                    pbCanvas.Invalidate();
+                    tssStatus.Text = $"UseCase \"{useCase}\" geselecteerd";
+                    return useCase;
+                }
+            }
+            return new UseCase();
+        }
+
+        private Actor SelectLineStart(Point position) {
+            foreach (var actor in actoren) {
+                if (actor.RectanglePos.Contains(position)) {
+                    actor.SetPenColor(Pens.Red);
+                    pbCanvas.Invalidate();
+                    tssStatus.Text = $"Actor \"{actor}\" geselecteerd";
+                    return actor;
+                }
+            }
+            return new Actor();
         }
 
         private void SelectUseCase(Point position) {
@@ -244,6 +298,12 @@ namespace UseCaseHelper {
             if (rbSelect.Checked) mode = Mode.Select;
             tssStatus.Text = "In select mode";
         }
+
+        private void rbSelectLine_CheckedChanged(object sender, EventArgs e) {
+            if (rbSelectLine.Checked) mode = Mode.DeleteLine;
+            tssStatus.Text = "In delete line mode";
+        }
+
         #endregion
         #region Buttons
         private void btnClearAll_Click(object sender, EventArgs e) {
@@ -266,6 +326,7 @@ namespace UseCaseHelper {
             }
         }
         #endregion
+
         #endregion
     }
 }
