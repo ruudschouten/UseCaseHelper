@@ -26,5 +26,9 @@ namespace UseCaseHelper {
         public void Draw(Graphics g, Pen p) {
             g.DrawLine(p, StartPosition, EndPosition);
         }
+
+        public override string ToString() {
+            return $"Actor: {Actor.Naam}, UseCase {UseCase.Naam}; StartPos: {StartPosition} EndPos: {EndPosition}";
+        }
     }
 }
