@@ -182,7 +182,9 @@ namespace UseCaseHelper {
                     }
                     for (var j = 0; j < lines.Count; j++) {
                         var line = lines[j];
-                        if (line.Actor == actor) { lines.Remove(line); }
+                        if (line.Actor.Naam == actor.Naam) {
+                            lines.Remove(line);
+                        }
                     }
                     actoren.Remove(actor);
                     break;
