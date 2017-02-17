@@ -46,7 +46,7 @@ namespace UseCaseHelper {
                 line.Draw(e.Graphics, black);
             }
             foreach (var useCase in useCases) {
-                useCase.Draw(e.Graphics, black);
+                useCase.Draw(e.Graphics);
             }
             foreach (var actor in actoren) {
                 actor.Draw(e.Graphics, black);
@@ -77,10 +77,13 @@ namespace UseCaseHelper {
         private void SelectUseCase(Point position) {
             for (var i = 0; i < useCases.Count; i++) {
                 var useCase = useCases[i];
+                useCase.Pen = Pens.Red;
+                pbCanvas.Invalidate();
                 if (useCase.RectanglePos.Contains(position)) {
                     var useCaseForm = new UseCaseCreateForm(useCase);
                     useCaseForm.ShowDialog();
                     useCases[i] = useCaseForm.GetUseCase();
+                    useCases[i].Pen = Pens.Black;
                 }
             }
         }

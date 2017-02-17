@@ -16,6 +16,7 @@ namespace UseCaseHelper {
         public string Resultaat { get; set; }
         public Point Position { get; set; }
         public Rectangle RectanglePos { get; set; }
+        public Pen Pen { get; set; }
 
         public UseCase() { }
 
@@ -28,6 +29,7 @@ namespace UseCaseHelper {
             Uitzonderingen = uitzonderingen;
             Resultaat = resultaat;
             Position = position;
+            Pen = Pens.Black;
         }
 
         public void VoegActorToe(Actor a) {
@@ -65,12 +67,12 @@ namespace UseCaseHelper {
             return new Point(RectanglePos.Left + RectanglePos.Width / 2, RectanglePos.Top + RectanglePos.Height / 2);
         }
 
-        public void Draw(Graphics g, Pen p) {
+        public void Draw(Graphics g) {
             Font font = new Font("Arial", 14);
             SizeF stringSize = g.MeasureString(Naam, font);
             RectanglePos = new Rectangle(Position, new Size((int)stringSize.Width + 20, (int)stringSize.Height + 20));
             g.FillEllipse(new SolidBrush(Color.White), RectanglePos);
-            g.DrawEllipse(p, RectanglePos);
+            g.DrawEllipse(Pen, RectanglePos);
             g.DrawString(Naam, font, new SolidBrush(Color.Black), new PointF(RectanglePos.X + 10, RectanglePos.Y + stringSize.Height / 2));
         }
 
