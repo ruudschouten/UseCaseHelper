@@ -36,6 +36,7 @@
             this.tssStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.rbSelectLine = new System.Windows.Forms.RadioButton();
             this.rbDelete = new System.Windows.Forms.RadioButton();
+            this.btnImage = new System.Windows.Forms.Button();
             this.gbElements.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -190,11 +191,23 @@
             this.rbDelete.UseVisualStyleBackColor = true;
             this.rbDelete.CheckedChanged += new System.EventHandler(this.rbDelete_CheckedChanged);
             // 
+            // btnImage
+            // 
+            this.btnImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnImage.Location = new System.Drawing.Point(525, 42);
+            this.btnImage.Name = "btnImage";
+            this.btnImage.Size = new System.Drawing.Size(100, 23);
+            this.btnImage.TabIndex = 12;
+            this.btnImage.Text = "Save as Image";
+            this.btnImage.UseVisualStyleBackColor = true;
+            this.btnImage.Click += new System.EventHandler(this.btnImage_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(640, 511);
+            this.Controls.Add(this.btnImage);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.gbElements);
             this.Controls.Add(this.groupBox1);
@@ -228,6 +241,7 @@
         private System.Windows.Forms.ToolStripStatusLabel tssStatus;
         private System.Windows.Forms.RadioButton rbSelectLine;
         private System.Windows.Forms.RadioButton rbDelete;
+        private System.Windows.Forms.Button btnImage;
     }
 }
 

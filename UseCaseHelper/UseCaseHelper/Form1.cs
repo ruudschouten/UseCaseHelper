@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -322,6 +325,17 @@ namespace UseCaseHelper {
             lines.Clear();
             pbCanvas.Invalidate();
             tssStatus.Text = "Canvas gecleared";
+        }
+
+        private void btnImage_Click(object sender, EventArgs e) {
+            int width = pbCanvas.Size.Width;
+            int height = pbCanvas.Size.Height;
+            Bitmap bm = new Bitmap(width, height);
+            pbCanvas.DrawToBitmap(bm, new Rectangle(0, 0, width, height));
+            string filepath = Directory.GetCurrentDirectory() + @"\capture.png";
+            bm.Save(filepath);
+            ProcessStartInfo startInfo = new ProcessStartInfo(filepath);
+            Process.Start(startInfo);
         }
         #endregion
 
