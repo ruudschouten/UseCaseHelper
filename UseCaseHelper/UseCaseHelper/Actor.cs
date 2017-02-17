@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace UseCaseHelper {
     public class Actor {
-        public string Naam { get; set; }
-        public Point Position { get; set; }
-        public Rectangle RectanglePos { get; set; }
-        public Pen Pen { get; set; }
+        public string Naam { get; private set; }
+        public Point Position { get; private set; }
+        public Rectangle RectanglePos { get; private set; }
+        public Pen Pen { get; private set; }
 
         public Actor() { }
 
@@ -18,6 +18,9 @@ namespace UseCaseHelper {
             Naam = naam;
             Position = position;
             Pen = Pens.Black;
+        }
+        public void SetPenColor(Pen p) {
+            Pen = p;
         }
 
         public static Actor Clone(Actor a) {

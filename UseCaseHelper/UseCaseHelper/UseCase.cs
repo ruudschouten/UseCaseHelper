@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace UseCaseHelper {
     public class UseCase {
-        public string Naam { get; set; }
-        public string Samenvatting { get; set; }
-        public List<Actor> Actoren { get; set; } = new List<Actor>();
-        public string Aannamen { get; set; }
-        public string Beschrijving { get; set; }
-        public string Uitzonderingen { get; set; }
-        public string Resultaat { get; set; }
-        public Point Position { get; set; }
-        public Rectangle RectanglePos { get; set; }
-        public Pen Pen { get; set; }
+        public string Naam { get; private set; }
+        public string Samenvatting { get; private set; }
+        public List<Actor> Actoren { get; private set; } = new List<Actor>();
+        public string Aannamen { get; private set; }
+        public string Beschrijving { get; private set; }
+        public string Uitzonderingen { get; private set; }
+        public string Resultaat { get; private set; }
+        public Point Position { get; private set; }
+        public Rectangle RectanglePos { get; private set; }
+        public Pen Pen { get; private set; }
 
         public UseCase() { }
 
@@ -30,6 +30,14 @@ namespace UseCaseHelper {
             Resultaat = resultaat;
             Position = position;
             Pen = Pens.Black;
+        }
+
+        public void SetPenColor(Pen p) {
+            Pen = p;
+        }
+
+        public void SetActoren(List<Actor> actoren) {
+            Actoren = actoren;
         }
 
         public void VoegActorToe(Actor a) {

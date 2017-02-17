@@ -78,12 +78,12 @@ namespace UseCaseHelper {
             for (var i = 0; i < useCases.Count; i++) {
                 var useCase = useCases[i];
                 if (useCase.RectanglePos.Contains(position)) {
-                    useCase.Pen = Pens.Red;
+                    useCase.SetPenColor(Pens.Red);
                     pbCanvas.Invalidate();
                     var useCaseForm = new UseCaseCreateForm(useCase);
                     useCaseForm.ShowDialog();
                     useCases[i] = useCaseForm.GetUseCase();
-                    useCases[i].Pen = Pens.Black;
+                    useCases[i].SetPenColor(Pens.Black);
                 }
             }
         }
@@ -93,12 +93,12 @@ namespace UseCaseHelper {
                 var actor = actoren[i];
                 if (actor.RectanglePos.Contains(position)) {
                     string prevName = actor.Naam;
-                    actor.Pen = Pens.Red;
+                    actor.SetPenColor(Pens.Red);
                     pbCanvas.Invalidate();
                     var actorForm = new ActorCreateForm(actor);
                     actorForm.ShowDialog();
                     actoren[i] = actorForm.GetActor();
-                    actoren[i].Pen = Pens.Black;
+                    actoren[i].SetPenColor(Pens.Black);
                     actor = actoren[i];
                     if (actor.Naam != prevName) {
                         foreach (var useCase in useCases) {

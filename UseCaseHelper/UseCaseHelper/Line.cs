@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 namespace UseCaseHelper {
 
     public class Line {
-        public Actor Actor { get; set; }
-        public UseCase UseCase { get; set; }
-        public Point StartPosition { get; set; }
-        public Point EndPosition { get; set; }
+        public Actor Actor { get; private set; }
+        public UseCase UseCase { get; private set; }
+        public Point StartPosition { get; private set; }
+        public Point EndPosition { get; private set; }
+        public Rectangle PositionRectangle { get; private set; }
 
         public Line(Actor a) {
             Actor = a;
