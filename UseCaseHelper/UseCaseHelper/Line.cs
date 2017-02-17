@@ -16,7 +16,7 @@ namespace UseCaseHelper {
 
         public Line(Actor a) {
             Actor = a;
-            StartPosition = a.GetCenter();
+            StartPosition = new Point(a.GetCenter().X, a.GetCenter().Y + 12);
         }
 
         public void FinishLine(UseCase u) {
