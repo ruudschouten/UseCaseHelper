@@ -19,6 +19,7 @@ namespace UseCaseHelper {
     public enum Mode {
         Create,
         Select,
+        Delete,
         DeleteLine
     }
 
@@ -87,8 +88,9 @@ namespace UseCaseHelper {
 
         private void SelectLine(Point position) {
             if (isSelectingLine) {
-                isSelectingLine = false;
                 lineUseCase = SelectLineEnd(position);
+                if (lineUseCase == null) return;
+                isSelectingLine = false;
                 for (var i = 0; i < lines.Count; i++) {
                     var line = lines[i];
                     if (line.Actor == lineActor && line.UseCase == lineUseCase) {
@@ -99,9 +101,12 @@ namespace UseCaseHelper {
                         lineActor.SetPenColor(Pens.Black);
                     }
                 }
+                tssStatus.Text = "Klaar met verwijderen van lijn";
             }
             else {
                 lineActor = SelectLineStart(position);
+                if (lineActor == null) return;
+                tssStatus.Text = "Begonnen met verwijderen van lijn";
                 isSelectingLine = true;
             }
         }
@@ -111,11 +116,11 @@ namespace UseCaseHelper {
                 if (useCase.RectanglePos.Contains(position)) {
                     useCase.SetPenColor(Pens.Red);
                     pbCanvas.Invalidate();
-                    tssStatus.Text = $"UseCase \"{useCase}\" geselecteerd";
+                    tssStatus.Text = $"UseCase \"{useCase}\" geselecteerd voor lijn";
                     return useCase;
                 }
             }
-            return new UseCase();
+            return null;
         }
 
         private Actor SelectLineStart(Point position) {
@@ -123,11 +128,11 @@ namespace UseCaseHelper {
                 if (actor.RectanglePos.Contains(position)) {
                     actor.SetPenColor(Pens.Red);
                     pbCanvas.Invalidate();
-                    tssStatus.Text = $"Actor \"{actor}\" geselecteerd";
+                    tssStatus.Text = $"Actor \"{actor}\" geselecteerd voor lijn";
                     return actor;
                 }
             }
-            return new Actor();
+            return null;
         }
 
         private void SelectUseCase(Point position) {
@@ -303,6 +308,11 @@ namespace UseCaseHelper {
             if (rbSelectLine.Checked) mode = Mode.DeleteLine;
             tssStatus.Text = "In delete line mode";
         }
+        private void rbDelete_CheckedChanged(object sender, EventArgs e) {
+            if (rbDelete.Checked) { mode = Mode.Delete; }
+            isDeleting = rbDelete.Checked;
+            tssStatus.Text = "In delete mode";
+        }
 
         #endregion
         #region Buttons
@@ -312,18 +322,6 @@ namespace UseCaseHelper {
             lines.Clear();
             pbCanvas.Invalidate();
             tssStatus.Text = "Canvas gecleared";
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e) {
-            if (isDeleting) {
-                isDeleting = false;
-                btnDelete.Text = "Delete";
-                tssStatus.Text = "In delete mode";
-            }
-            else {
-                isDeleting = true;
-                btnDelete.Text = "Stop";
-            }
         }
         #endregion
 

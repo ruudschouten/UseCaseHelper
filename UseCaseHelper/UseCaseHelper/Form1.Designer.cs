@@ -31,11 +31,11 @@
             this.rbSelect = new System.Windows.Forms.RadioButton();
             this.rbCreate = new System.Windows.Forms.RadioButton();
             this.pbCanvas = new System.Windows.Forms.Panel();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tssStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.rbSelectLine = new System.Windows.Forms.RadioButton();
+            this.rbDelete = new System.Windows.Forms.RadioButton();
             this.gbElements.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -90,12 +90,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.rbDelete);
             this.groupBox1.Controls.Add(this.rbSelectLine);
             this.groupBox1.Controls.Add(this.rbSelect);
             this.groupBox1.Controls.Add(this.rbCreate);
             this.groupBox1.Location = new System.Drawing.Point(113, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(95, 93);
+            this.groupBox1.Size = new System.Drawing.Size(155, 93);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Mode";
@@ -139,17 +140,6 @@
             this.pbCanvas.Click += new System.EventHandler(this.pbCanvas_Click);
             this.pbCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pnCanvas_Paint);
             // 
-            // btnDelete
-            // 
-            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(550, 41);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
-            this.btnDelete.TabIndex = 10;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
             // btnClearAll
             // 
             this.btnClearAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -179,7 +169,7 @@
             // rbSelectLine
             // 
             this.rbSelectLine.AutoSize = true;
-            this.rbSelectLine.Location = new System.Drawing.Point(7, 67);
+            this.rbSelectLine.Location = new System.Drawing.Point(68, 66);
             this.rbSelectLine.Name = "rbSelectLine";
             this.rbSelectLine.Size = new System.Drawing.Size(79, 17);
             this.rbSelectLine.TabIndex = 2;
@@ -187,6 +177,18 @@
             this.rbSelectLine.Text = "Delete Line";
             this.rbSelectLine.UseVisualStyleBackColor = true;
             this.rbSelectLine.CheckedChanged += new System.EventHandler(this.rbSelectLine_CheckedChanged);
+            // 
+            // rbDelete
+            // 
+            this.rbDelete.AutoSize = true;
+            this.rbDelete.Location = new System.Drawing.Point(6, 66);
+            this.rbDelete.Name = "rbDelete";
+            this.rbDelete.Size = new System.Drawing.Size(56, 17);
+            this.rbDelete.TabIndex = 3;
+            this.rbDelete.TabStop = true;
+            this.rbDelete.Text = "Delete";
+            this.rbDelete.UseVisualStyleBackColor = true;
+            this.rbDelete.CheckedChanged += new System.EventHandler(this.rbDelete_CheckedChanged);
             // 
             // Form1
             // 
@@ -197,7 +199,6 @@
             this.Controls.Add(this.gbElements);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pbCanvas);
-            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnClearAll);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -222,11 +223,11 @@
         private System.Windows.Forms.RadioButton rbSelect;
         private System.Windows.Forms.RadioButton rbCreate;
         private System.Windows.Forms.Panel pbCanvas;
-        private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnClearAll;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel tssStatus;
         private System.Windows.Forms.RadioButton rbSelectLine;
+        private System.Windows.Forms.RadioButton rbDelete;
     }
 }
 
