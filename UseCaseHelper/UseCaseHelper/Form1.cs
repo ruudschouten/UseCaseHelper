@@ -77,9 +77,9 @@ namespace UseCaseHelper {
         private void SelectUseCase(Point position) {
             for (var i = 0; i < useCases.Count; i++) {
                 var useCase = useCases[i];
-                useCase.Pen = Pens.Red;
-                pbCanvas.Invalidate();
                 if (useCase.RectanglePos.Contains(position)) {
+                    useCase.Pen = Pens.Red;
+                    pbCanvas.Invalidate();
                     var useCaseForm = new UseCaseCreateForm(useCase);
                     useCaseForm.ShowDialog();
                     useCases[i] = useCaseForm.GetUseCase();
@@ -91,10 +91,10 @@ namespace UseCaseHelper {
         private void SelectActor(Point position) {
             for (var i = 0; i < actoren.Count; i++) {
                 var actor = actoren[i];
-                actor.Pen = Pens.Red;
-                pbCanvas.Invalidate();
                 if (actor.RectanglePos.Contains(position)) {
                     string prevName = actor.Naam;
+                    actor.Pen = Pens.Red;
+                    pbCanvas.Invalidate();
                     var actorForm = new ActorCreateForm(actor);
                     actorForm.ShowDialog();
                     actoren[i] = actorForm.GetActor();
