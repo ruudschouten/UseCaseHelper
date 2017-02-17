@@ -34,10 +34,31 @@ namespace UseCaseHelper {
             int center;
             Font font = new Font("Arial", 14);
             SizeF stringSize = g.MeasureString(Naam, font);
-            RectanglePos = new Rectangle(Position, new Size(32, 64));
+            RectanglePos = new Rectangle(Position.X, Position.Y, 32, 64);
             center = RectanglePos.Width / 2;
-            g.FillRectangle(new SolidBrush(Color.White), RectanglePos);
-            g.DrawRectangle(Pen, RectanglePos);
+
+            //Head
+            int headSize = 20;
+            Rectangle HeadPosition = new Rectangle(GetCenter().X - headSize/2, GetCenter().Y - headSize, headSize, headSize);
+            g.FillEllipse(new SolidBrush(Color.White), HeadPosition);
+            g.DrawEllipse(Pen, HeadPosition);
+            //Body
+            int bodyLength = 20;
+            g.DrawLine(Pen, GetCenter().X, GetCenter().Y, GetCenter().X, GetCenter().Y + bodyLength);
+            //Arms
+            int armLength = 11;
+            int armHeightStart = 8;
+            int armHeightEnd = 7;
+            g.DrawLine(Pen, GetCenter().X - armLength, GetCenter().Y + armHeightStart, GetCenter().X, GetCenter().Y + armHeightEnd);
+            g.DrawLine(Pen, GetCenter().X + armLength, GetCenter().Y + armHeightStart, GetCenter().X, GetCenter().Y + armHeightEnd);
+            //Legs
+            int legLength = 12;
+            int legHeightStart = 20;
+            int legHeightEnd = 28;
+            g.DrawLine(Pen, GetCenter().X - legLength, GetCenter().Y + legHeightEnd, GetCenter().X, GetCenter().Y + legHeightStart);
+            g.DrawLine(Pen, GetCenter().X + legLength, GetCenter().Y + legHeightEnd, GetCenter().X, GetCenter().Y + legHeightStart);
+            
+//            g.DrawRectangle(Pen, RectanglePos);
             g.DrawString(Naam, font, new SolidBrush(Color.Black), new PointF(RectanglePos.X + center - stringSize.Width / 2, RectanglePos.Y + RectanglePos.Height));
         }
 
