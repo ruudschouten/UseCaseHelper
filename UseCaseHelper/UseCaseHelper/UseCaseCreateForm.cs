@@ -48,7 +48,7 @@ namespace UseCaseHelper {
             string uitzonderingen = rtbUitzonderingen.Text;
             string resultaat = tbResultaat.Text;
             if (string.IsNullOrEmpty(naam) || string.IsNullOrEmpty(samenvatting) || string.IsNullOrEmpty(aannamen) ||
-                string.IsNullOrEmpty(beschrijving) || string.IsNullOrEmpty(uitzonderingen) || string.IsNullOrEmpty(resultaat)) {
+                string.IsNullOrEmpty(beschrijving) || string.IsNullOrEmpty(resultaat)) {
                 var messageResult = MessageBox.Show("Niet alle velden zijn ingevuld, wilt u toch afsluiten?", "Onopgeslagen aanpassingein!", MessageBoxButtons.YesNo);
                 switch (messageResult) {
                     case DialogResult.None:
